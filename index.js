@@ -55,11 +55,11 @@ app.post('/register', function(request, response){
 app.get('/register', function(request, response) {
 	var collection = myDB.collection('user_account');
 	collection.insertMany([{Name : acceptac}], function(err, result) {
-    assert.equal(err, null);
-    assert.equal(3, result.result.n);
-    assert.equal(3, result.ops.length);
-    console.log("Inserted 3 documents into the collection");
-    callback(result);
+		assert.equal(err, null);
+		assert.equal(3, result.result.n);
+		assert.equal(3, result.ops.length);
+		console.log("Inserted 3 documents into the collection");
+		callback(result);
 });
 
 app.listen(app.get('port'), function() {
