@@ -51,6 +51,7 @@ app.post('/register', function(request, response){
 	acceptwd = request.body.Password;
     console.log(acceptac);
 	console.log(acceptwd);
+	var collection = myDB.collection('user_account');
 	collection.find({"user":acceptac}).toArray(function(err, docs) {
 		if (err) {
 			response.status(406).end();
@@ -62,7 +63,6 @@ app.post('/register', function(request, response){
 			acceptwd = null;
 		}
 	});
-	var collection = myDB.collection('user_account');
 	collection.insertMany([{user : acceptac,password : acceptwd}], function(err, result) {
 		assert.equal(err, null);
 		assert.equal(2, result.result.n);
