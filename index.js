@@ -1,3 +1,4 @@
+var assert = require('assert');
 var express = require('express');
 var mongodb = require('mongodb');
 var myParser = require('body-parser');//這是新加的
@@ -58,8 +59,9 @@ app.get('/register', function(request, response) {
 		assert.equal(err, null);
 		assert.equal(1, result.result.n);
 		assert.equal(1, result.ops.length);
+	});
 });
 
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
-	});
+});
