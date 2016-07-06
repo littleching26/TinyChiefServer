@@ -45,6 +45,13 @@ app.post('/api/test', function(request, response){
 	console.log(acceptwd);	
 });
 
+app.post('/register', function(request, response){
+	acceptac = request.body.User;
+	acceptwd = request.body.Password;
+    console.log(acceptac);
+	console.log(acceptwd);	
+});
+
 app.get('/register', function(request, response) {
 	var collection = myDB.collection('user_account');
 	collection.insertMany({user:acceptac,password:acceptwd}).toArray(function(err, docs) {
