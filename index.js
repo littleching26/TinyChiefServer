@@ -57,15 +57,14 @@ app.post('/register', function(request, response){
 	collection.find({"user":acceptac}).toArray(function(err, docs) {
 		if (err) {
 			response.status(406).end();
-		} else {
-			response.type('application/json');
-			response.status(200).send(docs);
-			response.end();
-			acceptac = null;
-			acceptwd = null;
-		}
+			} else {
+				console.log(JSON.stringify(docs));
+				response.type('application/json');
+				response.status(200).send(docs);
+				response.end();
+			}
+		});
 	});
-});
 	collection.insertMany([{user : acceptac,password : acceptwd}], function(err, result) {
 		assert.equal(err, null);
 		assert.equal(2, result.result.n);
