@@ -50,10 +50,8 @@ app.post('/register', function(request, response){
 	acceptac = request.body.User;
 	acceptwd = request.body.Password;
     console.log(acceptac);
-	console.log(acceptwd);	
-});
-
-app.get('/register', function(request, response) {
+	console.log(acceptwd);
+	
 	var collection = myDB.collection('user_account');
 	collection.insertMany([{Name : acceptac}], function(err, result) {
 		assert.equal(err, null);
