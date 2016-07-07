@@ -48,7 +48,7 @@ app.post('/api/test', function(request, response){
 
 app.get('/register', function(request, response) {
 	var collection = myDB.collection('user_account');
-	collection.find({"user":acceptac}).toArray(function(err, docs) {
+	collection.find({"user":acceptac,"password":acceptwd}).toArray(function(err, docs) {
 		if (err) {
 			response.status(406).end();
 		} else {
