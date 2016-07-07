@@ -46,7 +46,13 @@ app.post('/api/test', function(request, response){
 	console.log(acceptwd);	
 });
 
-app.get('/register', function(request, response) {
+app.post('/register', function(request, response){
+	acceptac = request.body.User;
+	acceptwd = request.body.Password;
+    console.log(acceptac);
+	console.log(acceptwd);
+	
+	app.get('/register', function(request, response) {
 	var collection = myDB.collection('user_account');
 	collection.find({"user":acceptac}).toArray(function(err, docs) {
 		if (err) {
@@ -59,13 +65,7 @@ app.get('/register', function(request, response) {
 			acceptwd = null;
 		}
 	});
-});
-
-app.post('/register', function(request, response){
-	acceptac = request.body.User;
-	acceptwd = request.body.Password;
-    console.log(acceptac);
-	console.log(acceptwd);
+	});
 	
 	var collection = myDB.collection('user_account');
 	collection.find({"user":acceptac}).toArray(function(err, docs) {
