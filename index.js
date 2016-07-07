@@ -54,6 +54,12 @@ app.get('/register', function(request, response) {
 		acceptac = null;
 		acceptwd = null;
 	}
+	else{
+		response.status(200).send("-");
+		response.end();
+		acceptac = null;
+		acceptwd = null;
+	}
 });
 
 app.post('/register', function(request, response){
