@@ -53,6 +53,7 @@ app.get('/register', function(request, response) {
 		response.end();
 		acceptac = null;
 		acceptwd = null;
+		checkAccount = false;
 	}
 	else{
 		response.status(200).send("registerFalse");
