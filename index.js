@@ -75,21 +75,15 @@ app.post('/register', function(request, response){
 		response.status(406).end();
 		} 
 	else {
-		console.log(JSON.stringify(docs));
-		if(JSON.stringify(docs)=="[]"){
-			collection.insertMany([{user : acceptac,password : acceptwd}], function(err, result) {
-			assert.equal(err, null);
-			assert.equal(1, result.result.n);
-			assert.equal(1, result.ops.length);
-			checkAccount = true;
-			});
-		}
-		else{
-				
-		}
-		response.type('application/json');
-		response.status(200).send(docs);
-		response.end();
+			console.log(JSON.stringify(docs));
+			if(JSON.stringify(docs)=="[]"){
+				collection.insertMany([{user : acceptac,password : acceptwd}], function(err, result) {
+				assert.equal(err, null);
+				assert.equal(1, result.result.n);
+				assert.equal(1, result.ops.length);
+				checkAccount = true;
+				});
+			}
 		}
 	});
 });
