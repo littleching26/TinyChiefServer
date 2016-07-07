@@ -53,7 +53,6 @@ app.get('/register', function(request, response) {
 		response.end();
 		acceptac = null;
 		acceptwd = null;
-		checkAccount = false;
 	}
 });
 
