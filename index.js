@@ -61,8 +61,6 @@ app.post('/register', function(request, response){
 			response.type('application/json');
 			response.status(200).send(docs);
 			response.end();
-			acceptac = null;
-			acceptwd = null;
 		}
 	});
 	});
@@ -89,6 +87,8 @@ app.post('/register', function(request, response){
 		response.type('application/json');
 		response.status(200).send(docs);
 		response.end();
+		acceptac = null;
+		acceptwd = null;
 	}
 	});
 });
