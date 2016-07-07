@@ -78,6 +78,21 @@ app.post('/register', function(request, response){
 	});
 });
 
+app.get('/register', function(request, response) {
+	var collection = myDB.collection('user_account');
+	collection.find({"user":acceptac}).toArray(function(err, docs) {
+		if (err) {
+			response.status(406).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(docs);
+			response.end();
+			acceptac = null;
+			acceptwd = null;
+		}
+	});
+});
+
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
 });
