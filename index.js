@@ -52,30 +52,29 @@ app.post('/register', function(request, response){
     console.log(acceptac);
 	console.log(acceptwd);
 	
-	app.get('/register', function(request, response) {
 	var collection = myDB.collection('user_account');
 	collection.find({"user":acceptac}).toArray(function(err, docs) {
-		if (err) {
-			response.status(406).end();
-			} else {
-				console.log(JSON.stringify(docs));
-				if(JSON.stringify(docs)=="[]")
-				{
-					collection.insertMany([{user : acceptac,password : acceptwd}], function(err, result) {
-					assert.equal(err, null);
-					assert.equal(2, result.result.n);
-					assert.equal(2, result.ops.length);
-					});
-				}
-				else
-				{
-					
-				}
-				response.type('application/json');
-				response.status(200).send(docs);
-				response.end();
-			}
-		});
+	if (err) {
+		response.status(406).end();
+		} 
+	else {
+		console.log(JSON.stringify(docs));
+		if(JSON.stringify(docs)=="[]")
+		{
+			collection.insertMany([{user : acceptac,password : acceptwd}], function(err, result) {
+			assert.equal(err, null);
+			assert.equal(2, result.result.n);
+			assert.equal(2, result.ops.length);
+			});
+		}
+		else
+		{
+				
+		}
+		response.type('application/json');
+		response.status(200).send(docs);
+		response.end();
+	}
 	});
 });
 
