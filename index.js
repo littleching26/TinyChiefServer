@@ -78,8 +78,8 @@ app.post('/register', function(request, response){
 		{
 			collection.insertMany([{user : acceptac,password : acceptwd}], function(err, result) {
 			assert.equal(err, null);
-			assert.equal(2, result.result.n);
-			assert.equal(2, result.ops.length);
+			assert.equal(1, result.result.n);
+			assert.equal(1, result.ops.length);
 			});
 		}
 		else
