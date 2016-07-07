@@ -6,7 +6,6 @@ var app = express();
 var mongodbURL = 'mongodb://LIChing:justtheway402@ds021731.mlab.com:21731/tiny_chief';
 var myDB;
 var acceptac,acceptwd;
-var checkAccount = false;
 app.set('port', (process.env.PORT || 5000));
 
 mongodb.MongoClient.connect(mongodbURL, function(err, db) {
@@ -47,27 +46,24 @@ app.post('/api/test', function(request, response){
 	console.log(acceptwd);	
 });
 
-app.get('/register', function(request, response) {
-	if(checkAccount){
-		response.status(200).send("registerSuccess");
-		response.end();
-		acceptac = null;
-		acceptwd = null;
-		checkAccount = false;
-	}
-	else{
-		response.status(200).send("-");
-		response.end();
-		acceptac = null;
-		acceptwd = null;
-	}
-});
-
 app.post('/register', function(request, response){
 	acceptac = request.body.User;
 	acceptwd = request.body.Password;
     console.log(acceptac);
 	console.log(acceptwd);
+	
+	app.get('/register', function(request, response) {
+		var collection = myDB.collection('user_account');
+		collection.find({"user":acceptac}).toArray(function(err, docs) {
+		if (err) {
+			response.status(406).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(docs);
+			response.end();
+		}
+		});
+	});
 	
 	var collection = myDB.collection('user_account');
 	collection.find({"user":acceptac}).toArray(function(err, docs) {
@@ -81,7 +77,6 @@ app.post('/register', function(request, response){
 				assert.equal(err, null);
 				assert.equal(1, result.result.n);
 				assert.equal(1, result.ops.length);
-				checkAccount = true;
 				});
 			}
 		}
