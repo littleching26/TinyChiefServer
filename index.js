@@ -59,7 +59,7 @@ app.get('/register', function(request, response) {
 			acceptwd = null;
 		}
 	});
-	});
+});
 
 app.post('/register', function(request, response){
 	acceptac = request.body.User;
