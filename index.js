@@ -55,12 +55,6 @@ app.get('/register', function(request, response) {
 		acceptwd = null;
 		checkAccount = false;
 	}
-	else{
-		response.status(200).send("registerFalse");
-		response.end();
-		acceptac = null;
-		acceptwd = null;
-	}
 });
 
 app.post('/register', function(request, response){
