@@ -48,19 +48,18 @@ app.post('/api/test', function(request, response){
 });
 
 app.get('/register', function(request, response) {
-		if(checkAccount){
-			response.status(200).send("registerSuccess");
-			response.end();
-			acceptac = null;
-			acceptwd = null;
-		}
-		else{
-			response.status(200).send("registerFalse");
-			response.end();
-			acceptac = null;
-			acceptwd = null;
-		}
-	});
+	if(checkAccount){
+		response.status(200).send("registerSuccess");
+		response.end();
+		acceptac = null;
+		acceptwd = null;
+	}
+	else{
+		response.status(200).send("registerFalse");
+		response.end();
+		acceptac = null;
+		acceptwd = null;
+	}
 });
 
 app.post('/register', function(request, response){
@@ -90,7 +89,7 @@ app.post('/register', function(request, response){
 		response.type('application/json');
 		response.status(200).send(docs);
 		response.end();
-	}
+		}
 	});
 });
 
