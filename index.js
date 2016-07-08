@@ -61,10 +61,20 @@ app.post('/register', function(request, response){
 			response.type('application/json');
 			response.status(200).send(docs);
 			response.end();
+			if(JSON.stringify(docs)=="[]"){
+				insertDocuments(myDB, function() {
+				});
+				acceptac = null;
+				acceptwd = null;
+			}
+			else{
+			}
 		}
 		});
 	});
-	
+});
+
+var insertDocuments = function(myDB,callback){
 	var collection = myDB.collection('user_account');
 	collection.find({"user":acceptac}).toArray(function(err, docs) {
 	if (err) {
@@ -77,11 +87,13 @@ app.post('/register', function(request, response){
 				assert.equal(err, null);
 				assert.equal(1, result.result.n);
 				assert.equal(1, result.ops.length);
+				callback(docs);
 				});
 			}
 		}
 	});
-});
+}
+
 
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
