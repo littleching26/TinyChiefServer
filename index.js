@@ -64,8 +64,6 @@ app.post('/register', function(request, response){
 			if(JSON.stringify(docs)=="[]"){
 				insertDocuments(myDB, function() {
 				});
-				acceptac = null;
-				acceptwd = null;
 			}
 			else{
 			}
