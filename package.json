@@ -1,9 +1,10 @@
 {
-"name" : "todo",
-"version" : "0.0.1",
-"private" : true,
-"dependencies" : {
-"express" : "*",
-"mongodb" : "*"
-}
+  "name": "todo",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "*",
+    "mongodb": "*",
+    "nodemailer": "^2.4.2"
+  }
 }
