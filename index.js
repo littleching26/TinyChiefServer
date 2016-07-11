@@ -63,16 +63,24 @@ app.post('/register', function(request, response){
 		if (err) {
 			response.status(406).end();
 		} else {
-			response.type('application/json');
-			response.status(200).send(docs);
-			response.end();
-			if(JSON.stringify(docs)=="[]"){
-				insertDocuments(myDB, function() {
-				});
+				response.type('application/json');
+				response.status(200).send(docs);
+				response.end();
+				if(JSON.stringify(docs)=="[]"){
+					insertDocuments(myDB, function() {
+					});
+					app.get('/insertOK', function(req, res) {
+						res.status(200).send("OK");
+						res.end();
+					});
+				}
+				else{
+					app.get('/insertOK', function(req2, res2) {
+						res2.status(200).send("notOK");
+						res2.end();
+					});
+				}
 			}
-			else{
-			}
-		}
 		});
 	});
 });
