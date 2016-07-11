@@ -140,8 +140,6 @@ app.get('/verify',function(req,res){
 		{
 			console.log("email is not verified");
 			res.end("<h1>Bad Request</h1>");
-			response.status(200).send("fail");
-			response.end();
 		}
 	}
 	else
