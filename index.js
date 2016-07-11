@@ -140,9 +140,8 @@ app.get('/verify',function(req,res){
 		{
 			console.log("email is not verified");
 			res.end("<h1>Bad Request</h1>");
-			app.get('/checkedEmail', function(request, response) {
-					response.status(200).send("fail");
-					response.end();
+			response.status(200).send("fail");
+			response.end();
 		}
 	}
 	else
