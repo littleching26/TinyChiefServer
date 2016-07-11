@@ -131,8 +131,8 @@ app.get('/verify',function(req,res){
 		{
 			console.log("email is verified");
 			res.end("<h1>Email "+mailOptions.to+" is been Successfully verified");
-			app.post('/checkedEmail', function(request, response) {
-					response.status(200).send("Congratuation");
+			app.get('/checkedEmail', function(request, response) {
+					response.status(200).send("congratuation");
 					response.end();
 			});
 		}
