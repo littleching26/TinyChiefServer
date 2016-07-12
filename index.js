@@ -86,7 +86,7 @@ var insertDocuments = function(myDB,callback){
 	else {
 			console.log(JSON.stringify(docs));
 			if(JSON.stringify(docs)=="[]"){
-				collection.insertMany([{user : acceptac,password : acceptwd,email : acceptEmail,checkEmail:NO}], function(err, result) {
+				collection.insertMany([{user : acceptac,password : acceptwd,email : acceptEmail,checkEmail:"NO"}], function(err, result) {
 				assert.equal(err, null);
 				assert.equal(1, result.result.n);
 				assert.equal(1, result.ops.length);
