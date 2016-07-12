@@ -131,10 +131,8 @@ app.get('/verify',function(req,res){
 		{
 			console.log("email is verified");
 			res.end("<h1>Email "+mailOptions.to+" is been Successfully verified");
-			app.get('/checkedEmail', function(request, response) {
-					response.status(200).send("congratuation");
-					response.end();
-			});
+			var collection = myDB.collection('user_account');
+			collection.update({user:acceptac}, {$set: {checkEmail:"OK"}});
 		}
 		else
 		{
