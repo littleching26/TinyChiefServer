@@ -27,7 +27,7 @@ app.get('/', function(request, response) {
 			response.status(406).end();
 		} else {
 			response.type('application/json');
-			response.status(200).send(docs);
+		response.status(200).send('<html><body><H1>results:[</H1></body></html>'+docs+'<html><body><H1>]</H1></body></html>');
 			response.end();
 		}
 	});
