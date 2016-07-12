@@ -21,9 +21,17 @@ mongodb.MongoClient.connect(mongodbURL, function(err, db) {
 });
 
 app.get('/', function(request, response) {
-	response.status(200).send('<html><body><H1>Hello World</H1></body></html>');
-	response.end();
+	var collection = myDB.collection('cook_book');
+	collection.find({}).toArray(function(err, docs) {
+		if (err) {
+			response.status(406).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(docs);
+			response.end();
+		}
 	});
+});
 
 app.use(myParser.urlencoded({extended : true}));	
 
