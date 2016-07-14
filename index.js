@@ -64,10 +64,8 @@ app.post('/register', function(request, response){
     console.log(acceptac);
 	console.log(acceptwd);
 	console.log(acceptEmail);
-	
-	app.get('/register', function(request, response) {
-		var collection = myDB.collection('user_account');
-		collection.find({"user":acceptac}).toArray(function(err, docs) {
+	var collection = myDB.collection('user_account');
+	collection.find({"user":acceptac}).toArray(function(err, docs) {
 		if (err) {
 			response.status(406).end();
 		} else {
@@ -81,7 +79,6 @@ app.post('/register', function(request, response){
 			else{
 			}
 		}
-		});
 	});
 });
 
