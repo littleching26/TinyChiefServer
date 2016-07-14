@@ -96,6 +96,8 @@ var transporter = nodemailer.createTransport('smtps://clownheart5221%40gmail.com
 
 app.get('/send',function(req,res){
     rand=Math.floor((Math.random() * 100) + 54);
+	var collection = myDB.collection('user_account');
+	collection.update({user:acceptac}, {$set: {randNumber:rand}});
 	host=req.get('host');
 	link="http://"+req.get('host')+"/verify?id="+rand;
 	mailOptions={
@@ -126,7 +128,7 @@ app.get('/verify',function(req,res){
 			console.log("email is verified");
 			res.end("<h1>Email "+mailOptions.to+" is been Successfully verified");
 			var collection = myDB.collection('user_account');
-			collection.update({user:acceptac}, {$set: {checkEmail:"OK"}});
+			collection.update({randNumber:rand}, {$set: {checkEmail:"OK"}});
 		}
 		else
 		{
