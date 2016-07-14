@@ -85,23 +85,12 @@ app.post('/register', function(request, response){
 	});
 });
 
-var insertDocuments = function(myDB,callback){
+var insertDocuments = function(myDB){
 	var collection = myDB.collection('user_account');
-	collection.find({"user":acceptac}).toArray(function(err, docs) {
-	if (err) {
-		response.status(406).end();
-		} 
-	else {
-			console.log(JSON.stringify(docs));
-			if(JSON.stringify(docs)=="[]"){
-				collection.insertMany([{user : acceptac,password : acceptwd,email : acceptEmail,checkEmail:"NO"}], function(err, result) {
-				assert.equal(err, null);
-				assert.equal(1, result.result.n);
-				assert.equal(1, result.ops.length);
-				callback(docs);
-				});
-			}
-		}
+	collection.insertMany([{user : acceptac,password : acceptwd,email : acceptEmail,checkEmail:"NO"}], function(err, result) {
+	assert.equal(err, null);
+	assert.equal(1, result.result.n);
+	assert.equal(1, result.ops.length);
 	});
 }
 
