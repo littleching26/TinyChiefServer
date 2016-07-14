@@ -22,7 +22,7 @@ mongodb.MongoClient.connect(mongodbURL, function(err, db) {
 
 app.get('/', function(request, response) {
 	var collection = myDB.collection('cook_book');
-	collection.find({"name":"皮蛋地瓜葉(4人份)"}).toArray(function(err, docs) {
+	collection.find({cook}).toArray(function(err, docs) {
 		if (err) {
 			response.status(406).end();
 		} else {
