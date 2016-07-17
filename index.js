@@ -20,7 +20,7 @@ mongodb.MongoClient.connect(mongodbURL, function(err, db) {
 	}
 });
 
-app.get('/', function(request, response) {
+app.get('/', function() {
 	var collection = myDB.collection('cook_book');
 	collection.find({"name":"皮蛋地瓜葉(4人份)"}).toArray(function(err, docs) {
 		if (err) {
