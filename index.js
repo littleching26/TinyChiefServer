@@ -157,8 +157,13 @@ app.post('/createCookBook', function(request, response){
     console.log(acceptMt);
 	console.log(acceptSt);
 	//console.log(acceptPic);
+	var collection = myDB.collection('Photo');
+	collection.insertMany([{material : acceptMt,step : acceptSt}], function(err, result) {
+	assert.equal(err, null);
+	assert.equal(1, result.result.n);
+	assert.equal(1, result.ops.length);
+	});
 });
-
 
 
 
