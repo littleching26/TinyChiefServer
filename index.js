@@ -6,6 +6,7 @@ var app = express();
 var mongodbURL = 'mongodb://LIChing:justtheway402@ds021731.mlab.com:21731/tiny_chief';
 var myDB;
 var acceptac,acceptwd,acceptEmail;
+var acceptPic,acceptMt,acceptSt;
 var nodemailer = require('nodemailer');
 var rand;
 var mailOptions;
@@ -148,6 +149,23 @@ transporter.sendMail(mailOptions, function(error, info){
 	}
 	console.log('Message sent: ' + info.response);
 });
+
+app.post('/createCookBook', function(request, response){
+	acceptMt = request.body.Materials;
+	acceptSt = request.body.Steps;
+	//acceptPic = request.body.Picture;
+    console.log(acceptMt);
+	console.log(acceptSt);
+	//console.log(acceptPic);
+});
+
+
+
+
+
+
+
+
 
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
