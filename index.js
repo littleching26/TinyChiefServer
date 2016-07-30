@@ -155,7 +155,7 @@ transporter.sendMail(mailOptions, function(error, info){
 app.post('/createCookBook', function(request, response){
 	acceptCountMts = request.body.CountMaterials;
 	acceptCountSts = request.body.CountSteps;
-	for(var i = 0;i<acceptCountMts.length;i++){
+	for(var i = 0;i<acceptCountMts;i++){
 		acceptMt.push(request.body.Material_(i+1));
 	}
 	var collection = myDB.collection('Photo');
