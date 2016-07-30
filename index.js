@@ -155,12 +155,12 @@ transporter.sendMail(mailOptions, function(error, info){
 app.post('/createCookBook', function(request, response){
 	acceptMt = request.body.Material_1;
 	acceptSt = request.body.Step_1;
-	/*acceptCountMts = request.body.CountMaterials;
-	acceptCountSts = request.body.CountSteps;*/
+	acceptCountMts = request.body.CountMaterials;
+	acceptCountSts = request.body.CountSteps;
     console.log(acceptMt);
 	console.log(acceptSt);
 	var collection = myDB.collection('Photo');
-	collection.insertMany([{material : acceptMt,step:acceptSt}], function(err, result) {
+	collection.insertMany([{material : acceptMt,step:acceptSt,countMts:acceptCountMts,countSts:acceptCountSts}], function(err, result) {
 	assert.equal(err, null);
 	assert.equal(1, result.result.n);
 	assert.equal(1, result.ops.length);
