@@ -159,12 +159,11 @@ app.post('/createCookBook', function(request, response){
     console.log(acceptMt);
 	console.log(acceptSt);
 	//console.log(acceptPic);
-	i = 0;
-	for(i = 0; i<acceptCountMts.length;i++){
+	for(var i = 0; i<acceptCountMts.length;i++){
 	   acceptMt.push = request.body.Material_(i+1);
 	}
 	var collection = myDB.collection('Photo');
-	i=1;
+	var i = 1;
 	collection.insertMany([{material_i : acceptMt.get(i)}], function(err, result) {
 	assert.equal(err, null);
 	assert.equal(1, result.result.n);
