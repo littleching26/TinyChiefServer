@@ -7,8 +7,8 @@ var mongodbURL = 'mongodb://LIChing:justtheway402@ds021731.mlab.com:21731/tiny_c
 var myDB;
 var acceptac,acceptwd,acceptEmail;
 var acceptPic,acceptCountMts,acceptCountSts;
-var acceptMt = [];
-var acceptSt = [];
+var acceptMt=[];
+var acceptSt=[];
 var nodemailer = require('nodemailer');
 var rand;
 var mailOptions;
@@ -156,7 +156,10 @@ app.post('/createCookBook', function(request, response){
 	acceptCountMts = request.body.CountMaterials;
 	acceptCountSts = request.body.CountSteps;
 	for(var i = 0;i<acceptCountMts;i++){
-		acceptMt.push(request.body.Material_(i+1));
+		composeMessage(i);
+	}
+	 function composeMessage(i){
+      acceptMt.push(request.body.Material_(i+1));
 	}
 	var collection = myDB.collection('Photo');
 	collection.insertMany([{material:acceptMt}], function(err, result) {
