@@ -153,18 +153,18 @@ transporter.sendMail(mailOptions, function(error, info){
 });
 
 app.post('/createCookBook', function(request, response){
-	acceptCountMts = request.body.countMaterials;
-	acceptCountSts = request.body.countSteps;
+	acceptCountMts = request.body.CountMaterials;
+	acceptCountSts = request.body.CountSteps;
 	//acceptPic = request.body.Picture;
-    console.log(acceptMt);
-	console.log(acceptSt);
+    console.log(acceptCountMts);
+	console.log(acceptCountSts);
 	//console.log(acceptPic);
 	for(var i = 0; i<acceptCountMts.length;i++){
 	   acceptMt.push = request.body.Material_(i+1);
 	}
+	console.log(acceptMt);
 	var collection = myDB.collection('Photo');
-	var i = 1;
-	collection.insertMany([{material : acceptMt}], function(err, result) {
+	collection.insertMany([{material : acceptCountMts}], function(err, result) {
 	assert.equal(err, null);
 	assert.equal(1, result.result.n);
 	assert.equal(1, result.ops.length);
