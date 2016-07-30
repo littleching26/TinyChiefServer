@@ -151,8 +151,8 @@ transporter.sendMail(mailOptions, function(error, info){
 });
 
 app.post('/createCookBook', function(request, response){
-	acceptMt = request.body.Materials;
-	acceptSt = request.body.Steps;
+	acceptMt = request.body.Materials_1;
+	acceptSt = request.body.Materials_2;
 	//acceptPic = request.body.Picture;
     console.log(acceptMt);
 	console.log(acceptSt);
