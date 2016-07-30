@@ -164,7 +164,7 @@ app.post('/createCookBook', function(request, response){
 	}
 	var collection = myDB.collection('Photo');
 	var i = 1;
-	collection.insertMany([{material_i : acceptMt.get(i)}], function(err, result) {
+	collection.insertMany([{material : acceptMt}], function(err, result) {
 	assert.equal(err, null);
 	assert.equal(1, result.result.n);
 	assert.equal(1, result.ops.length);
