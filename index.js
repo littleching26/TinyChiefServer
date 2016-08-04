@@ -6,9 +6,9 @@ var app = express();
 var mongodbURL = 'mongodb://LIChing:justtheway402@ds021731.mlab.com:21731/tiny_chief';
 var myDB;
 var acceptac,acceptwd,acceptEmail;
-var acceptPic,acceptCountMts,acceptCountSts;
-var acceptMt=[];
-var acceptSt=[];
+var acceptPic;
+var acceptMt;
+var acceptSt;
 var nodemailer = require('nodemailer');
 var rand;
 var mailOptions;
@@ -152,17 +152,19 @@ transporter.sendMail(mailOptions, function(error, info){
 	console.log('Message sent: ' + info.response);
 });
 
+app.use(myParser.urlencoded({extended : true}));
 app.post('/createCookBook', function(request, response){
-	acceptCountMts = request.body.CountMaterials;
-	acceptCountSts = request.body.CountSteps;
-	for(var i = 0;i<acceptCountMts;i++){
-		composeMessage(i);
-	}
-	 function composeMessage(i){
-      acceptMt.push(request.body.Material_(i+1));
-	}
+	console.log(request.body); 
+	  //下面那兩個是步驟和食材的陣列
+	  var arrIngredients = request.body.Ingredients.split("|");
+	  var arrStep = request.body.Step.split("|");
+	  //顯示
+	  console.log(request.body.title);
+	  console.log(arrIngredients);
+	  console.log(arrStep);
+      response.end();
 	var collection = myDB.collection('Photo');
-	collection.insertMany([{material:acceptMt}], function(err, result) {
+	collection.insertMany([{materials:arrIngredients,steps:arrStep}], function(err, result) {
 	assert.equal(err, null);
 	assert.equal(1, result.result.n);
 	assert.equal(1, result.ops.length);
