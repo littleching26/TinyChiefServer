@@ -174,7 +174,7 @@ app.post('/createCookBook', function(request, response){
 app.post('/createPicture', function(request, response){
 	console.log(request.body); 
 	  //下面那兩個是步驟和食材的陣列
-	  var arrBinarydata = request.body;
+	  var arrBinarydata = request;
       response.end();
 	var collection = myDB.collection('Photo');
 	collection.insertMany([{picture:arrBinarydata}], function(err, result) {
