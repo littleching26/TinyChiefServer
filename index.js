@@ -156,34 +156,22 @@ app.use(myParser.urlencoded({extended : true}));
 app.post('/createCookBook', function(request, response){
 	console.log(request.body); 
 	  //下面那兩個是步驟和食材的陣列
+	  var cookBookTitle = request.body.title;
 	  var arrIngredients = request.body.Ingredients.split("|");
 	  var arrStep = request.body.Step.split("|");
+	  var cookBookImage = request.body.image;
 	  //顯示
 	  console.log(request.body.title);
 	  console.log(arrIngredients);
 	  console.log(arrStep);
       response.end();
-	var collection = myDB.collection('Photo');
-	collection.insertMany([{materials:arrIngredients,steps:arrStep}], function(err, result) {
+	var collection = myDB.collection('cook_book');
+	collection.insertMany([{title:cookBookTitle,materials:arrIngredients,steps:arrStep,image:cookBookImage}], function(err, result) {
 	assert.equal(err, null);
 	assert.equal(1, result.result.n);
 	assert.equal(1, result.ops.length);
 	});
 });
-
-app.post('/createPicture', function(request, response){
-	  var arrBinarydata = request.body.Picture;
-      response.end();
-	var collection = myDB.collection('Photo');
-	collection.insertMany([{picture:arrBinarydata}], function(err, result) {
-	assert.equal(err, null);
-	assert.equal(1, result.result.n);
-	assert.equal(1, result.ops.length);
-	});
-});
-
-
-
 
 
 
