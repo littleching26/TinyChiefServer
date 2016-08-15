@@ -13,6 +13,7 @@ var nodemailer = require('nodemailer');
 var rand;
 var mailOptions;
 var cookBookNumber;
+var myCookBook;
 app.set('port', (process.env.PORT || 5000));
 
 //提高上傳限制
@@ -27,8 +28,10 @@ mongodb.MongoClient.connect(mongodbURL, function(err, db) {
 	}
 });
 
+app.post('/', function(request, response){
+	myCookBook= request.body.detailCookBook;	
+});
 app.get('/', function(request, response) {
-	var myCookBook= request.body.detailCookBook;
 	var collection = myDB.collection('cook_book');
 	collection.find({"name":myCookBook}).toArray(function(err, docs) {
 		if (err) {
