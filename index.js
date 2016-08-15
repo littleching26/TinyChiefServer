@@ -179,7 +179,9 @@ app.post('/createCookBook', function(request, response){
 
 app.post('/getCookBook', function(request, response){
 	var cookBookNumber = request.body.Count;
-	app.get('/getCookBook', function(request, response){
+});
+
+app.get('/getCookBook', function(request, response){
 		var collection = myDB.collection('cook_book');
 		collection.find({"count":cookBookNumber}).toArray(function(err, docs) {
 			if (err) {
@@ -191,8 +193,6 @@ app.post('/getCookBook', function(request, response){
 			}
 		});
 	});	
-});
-
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
 });
