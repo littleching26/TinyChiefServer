@@ -176,6 +176,18 @@ app.post('/createCookBook', function(request, response){
 	});
 });
 
+app.get('/getCookBook', function(request, response){
+	var collection = myDB.collection('cook_book');
+	collection.find({}).toArray(function(err, docs) {
+		if (err) {
+			response.status(406).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(docs);
+			response.end();
+		}
+	});
+});
 
 
 app.listen(app.get('port'), function() {
