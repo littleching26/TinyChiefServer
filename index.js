@@ -177,8 +177,9 @@ app.post('/createCookBook', function(request, response){
 });
 
 app.get('/getCookBook', function(request, response){
+	var cookBookNumber = request.body.Count;
 	var collection = myDB.collection('cook_book');
-	collection.find({}).toArray(function(err, docs) {
+	collection.find({"count":cookBookNumber}).toArray(function(err, docs) {
 		if (err) {
 			response.status(406).end();
 		} else {
