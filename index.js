@@ -12,6 +12,7 @@ var acceptSt;
 var nodemailer = require('nodemailer');
 var rand;
 var mailOptions;
+var cookBookNumber;
 app.set('port', (process.env.PORT || 5000));
 
 //提高上傳限制
@@ -176,20 +177,21 @@ app.post('/createCookBook', function(request, response){
 	});
 });
 
-app.get('/getCookBook', function(request, response){
+app.post('/getCookBook', function(request, response){
 	var cookBookNumber = request.body.Count;
-	var collection = myDB.collection('cook_book');
-	collection.find({"count":cookBookNumber}).toArray(function(err, docs) {
-		if (err) {
-			response.status(406).end();
-		} else {
-			response.type('application/json');
-			response.status(200).send(docs);
-			response.end();
-		}
-	});
+	app.get('/getCookBook', function(request, response){
+		var collection = myDB.collection('cook_book');
+		collection.find({"count":cookBookNumber}).toArray(function(err, docs) {
+			if (err) {
+				response.status(406).end();
+			} else {
+				response.type('application/json');
+				response.status(200).send(docs);
+				response.end();
+			}
+		});
+	});	
 });
-
 
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
