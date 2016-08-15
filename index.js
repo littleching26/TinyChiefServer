@@ -14,6 +14,9 @@ var rand;
 var mailOptions;
 app.set('port', (process.env.PORT || 5000));
 
+//提高上傳限制
+app.use(myParser({limit: '50mb'}));
+
 mongodb.MongoClient.connect(mongodbURL, function(err, db) {
 	if (err) {
 		console.log(err);
