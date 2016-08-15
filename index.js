@@ -166,7 +166,7 @@ app.post('/createCookBook', function(request, response){
 	  console.log(arrStep);
       response.end();
 	var collection = myDB.collection('cook_book');
-	collection.insertMany([{title:cookBookTitle,materials:arrIngredients,steps:arrStep,image:cookBookImage}], function(err, result) {
+	collection.insertMany([{title:cookBookTitle,ingredients:arrIngredients,steps:arrStep,image:cookBookImage}], function(err, result) {
 	assert.equal(err, null);
 	assert.equal(1, result.result.n);
 	assert.equal(1, result.ops.length);
