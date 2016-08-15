@@ -178,7 +178,7 @@ app.post('/createCookBook', function(request, response){
 });
 
 app.post('/getCookBook', function(request, response){
-	var cookBookNumber = request.body.Count;
+	cookBookNumber = request.body.Count;
 });
 
 app.get('/getCookBook', function(request, response){
