@@ -28,8 +28,9 @@ mongodb.MongoClient.connect(mongodbURL, function(err, db) {
 });
 
 app.get('/', function(request, response) {
+	var myCookBook= request.body.detailCookBook;
 	var collection = myDB.collection('cook_book');
-	collection.find({"name":"涼拌洋葱鮪魚沙拉"}).toArray(function(err, docs) {
+	collection.find({"name":myCookBook}).toArray(function(err, docs) {
 		if (err) {
 			response.status(406).end();
 		} else {
