@@ -28,25 +28,10 @@ mongodb.MongoClient.connect(mongodbURL, function(err, db) {
 	}
 });
 
-app.post('/', function(request, response){
-	myCookBook= request.body.detailCookBook;	
-});
-app.get('/', function(request, response) {
-	var collection = myDB.collection('cook_book');
-	collection.find({"name":myCookBook}).toArray(function(err, docs) {
-		if (err) {
-			response.status(406).end();
-		} else {
-			response.type('application/json');
-			response.status(200).send(docs);
-			response.end();
-		}
-	});
-});
 
 app.use(myParser.urlencoded({extended : true}));	
 
-app.get('/api/test', function(request, response) {
+app.get('/login', function(request, response) {
 	var collection = myDB.collection('user_account');
 	collection.find({"user":acceptac,"password":acceptwd}).toArray(function(err, docs) {
 		if (err) {
@@ -61,7 +46,7 @@ app.get('/api/test', function(request, response) {
 	});
 });
 
-app.post('/api/test', function(request, response){
+app.post('/login', function(request, response){
 	acceptac = request.body.User;
 	acceptwd = request.body.Password;
     console.log(acceptac);
@@ -174,29 +159,77 @@ app.post('/createCookBook', function(request, response){
 	  console.log(arrStep);
       response.end();
 	var collection = myDB.collection('cook_book');
-	collection.insertMany([{title:cookBookTitle,ingredients:arrIngredients,steps:arrStep,image:cookBookImage}], function(err, result) {
+	collection.insertMany([{count:0,title:cookBookTitle,ingredients:arrIngredients,steps:arrStep,image:cookBookImage}], function(err, result) {
 	assert.equal(err, null);
 	assert.equal(1, result.result.n);
 	assert.equal(1, result.ops.length);
 	});
 });
 
+app.post('/cookbook/detail', function(request, response){
+	var collection = myDB.collection('cook_book');
+	var id=mongodb.ObjectID(request.body.id);
+	
+	collection.findOne({'_id': id},function(err, docs) {
+		if (err) {
+			response.status(406).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(docs);
+			response.end();
+		}
+	});
+});
+
+app.post('/cookbook/simple', function(request, response){
+	var collection = myDB.collection('cook_book');
+	cursor = collection.find({},{_id:true,"author.name":true,title:true,image:true})
+							.sort({"count":-1})
+							.skip(parseInt(request.body.SkipCount)*10)
+							.limit(10);
+	cursor.toArray(function(err, docs) {
+		if (err) {			
+			console.log(err);
+			response.status(406).end();
+		} else {	
+			response.type('application/json');
+			response.status(200).send(docs);
+			response.end();
+		}
+	});	
+});
+
+app.post('/upload/cookbook', function(request, response) {	
+	var collection = myDB.collection('cook_book');
+    console.log(request.body); 
+	collection.insert(request.body,function(err, doc) {
+		console.log(request.body);
+		if(err) throw err;
+		response.end();
+	});
+});
+
 app.post('/getCookBook', function(request, response){
+	//cookBookNumber用來跳過剛剛顯示過的資料
 	cookBookNumber = request.body.Count;
+	detailCookBook = request.body.DetailCookBook;
+	console.log(cookBookNumber);
 });
 
 app.get('/getCookBook', function(request, response){
-		var collection = myDB.collection('cook_book');
-		collection.find({"count":cookBookNumber}).toArray(function(err, docs) {
-			if (err) {
-				response.status(406).end();
-			} else {
-				response.type('application/json');
-				response.status(200).send(docs);
-				response.end();
-			}
-		});
-	});	
+	var collection = myDB.collection('cook_book');
+	//找前5大的資料 //skip是略過
+	collection.find().sort({"count":-1}).skip(parseInt(cookBookNumber)).limit(5).toArray(function(err, docs) {
+		if (err) {
+			response.status(406).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(docs);
+			response.end();
+		}
+	});
+});	
+
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
 });
