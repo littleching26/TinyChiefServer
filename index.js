@@ -31,7 +31,12 @@ mongodb.MongoClient.connect(mongodbURL, function(err, db) {
 
 app.use(myParser.urlencoded({extended : true}));	
 
-app.get('/login', function(request, response) {
+
+app.post('/login', function(request, response){
+	acceptac = request.body.User;
+	acceptwd = request.body.Password;
+    console.log(acceptac);
+	console.log(acceptwd);
 	var collection = myDB.collection('user_account');
 	collection.find({"user":acceptac,"password":acceptwd}).toArray(function(err, docs) {
 		if (err) {
@@ -44,13 +49,6 @@ app.get('/login', function(request, response) {
 			acceptwd = null;
 		}
 	});
-});
-
-app.post('/login', function(request, response){
-	acceptac = request.body.User;
-	acceptwd = request.body.Password;
-    console.log(acceptac);
-	console.log(acceptwd);	
 });
 
 app.post('/register', function(request, response){
