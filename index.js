@@ -87,7 +87,7 @@ var insertDocuments = function(myDB){
 }
 
 // create reusable transporter object using the default SMTP transport
-var smtpTransport = nodemailer.createTransport("SMTP",{
+var transporter = nodemailer.createTransport("SMTP",{
     service: "Gmail",
     auth: {
         user: "clownheart5221@gmail.com",
