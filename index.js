@@ -229,6 +229,41 @@ app.get('/getCookBook', function(request, response){
 	});
 });	
 
+app.post('/upload/comment', function(request, response) {
+	collection.update({'_id':mongodb.ObjectID(request.body.id_cb)},
+                      {$push : { comment : { name : request.body.name,
+                                            id : request.body.id_usr, 
+                                            rate : parseInt(request.body.rate, 10), 
+                                            message : request.body.msg}}},
+                      function(err,doc){
+                          if (err) {
+                              console.log(err);
+                              response.status(406).send(err);
+                              response.end();
+                          }
+                          else{
+                              console.log("ggggg");
+                              setAvgRate(request.body.id_cb);
+                              response.status(200).send("success");
+                              response.end();                              
+                          }
+                      });
+});
+
+var setAvgRate = function(id){
+    var total = 0;
+    cursor = collection.find({'_id':mongodb.ObjectID(id)},
+                                {'comment.rate':true});
+    cursor.forEach(function(docs){
+        for(var i=0;i<docs.comment.length;i++){
+            total+=docs.comment[i].rate;
+            console.log(total);
+        }
+        collection.update({'_id':mongodb.ObjectID(id)},
+                            { $set : {rate_avg : total/docs.comment.length}},
+                            { upsert : true});
+    });
+};
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
 });
