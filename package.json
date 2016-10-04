@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "express": "*",
+    "mailer": "^0.6.7",
     "mongodb": "*",
+    "node": "0.0.0",
     "nodemailer": "^2.4.2"
   }
 }
