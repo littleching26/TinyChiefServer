@@ -96,7 +96,7 @@ app.get('/send',function(req,res){
 	host=req.get('host');
 	link="http://"+req.get('host')+"/verify?id="+rand;
 	mailOptions={
-		from: '"tiny-chief 👥" <clownheart5221@gmail.com>', 
+		from: '"hahaha 👥" <clownheart5221@gmail.com>', 
 		to : acceptEmail,
 		subject : "Please confirm your Email account",
 		html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"	
