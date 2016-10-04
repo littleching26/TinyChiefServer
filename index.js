@@ -87,7 +87,7 @@ var insertDocuments = function(myDB){
 }
 
 // create reusable transporter object using the default SMTP transport
-var transporter = nodemailer.createTransport('smtps://littleching26%40gmail.com:justtheway402@smtp.gmail.com');
+var transporter = nodemailer.createTransport('smtps://clownheart5221%40gmail.com:justtheway402@smtp.gmail.com');
 
 app.get('/send',function(req,res){
     rand=Math.floor((Math.random() * 100) + 54);
@@ -96,10 +96,9 @@ app.get('/send',function(req,res){
 	host=req.get('host');
 	link="http://"+req.get('host')+"/verify?id="+rand;
 	mailOptions={
-		from: '"tiny-chief 👥" <littleching26@gmail.com>', 
+		from: '"tiny-chief 👥" <clownheart5221@gmail.com>', 
 		to : acceptEmail,
 		subject : "Please confirm your Email account",
-		text: 'Hello',
 		html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"	
 	}
 	console.log(mailOptions);
