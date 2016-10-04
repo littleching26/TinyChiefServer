@@ -86,7 +86,7 @@ var insertDocuments = function(myDB){
 }
 
 // create reusable transporter object using the default SMTP transport
-var transporter = nodemailer.createTransport('smtps://clownheart5221%40gmail.com:esogoodx06@smtp.gmail.com');
+var transporter = nodemailer.createTransport('smtps://clownheart5221%40gmail.com:justtheway402@smtp.gmail.com');
 
 app.get('/send',function(req,res){
     rand=Math.floor((Math.random() * 100) + 54);
