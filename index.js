@@ -5,7 +5,7 @@ var myParser = require('body-parser');//這是新加的
 var app = express();
 var mongodbURL = 'mongodb://LIChing:justtheway402@ds021731.mlab.com:21731/tiny_chief';
 var myDB;
-var acceptac,acceptwd,acceptEmail;
+var acceptac,acceptwd,acceptEmail,acceptNickname;
 var acceptPic;
 var acceptMt;
 var acceptSt;
@@ -55,6 +55,7 @@ app.post('/register', function(request, response){
 	acceptac = request.body.User;
 	acceptwd = request.body.Password;
 	acceptEmail = request.body.myEmail;
+	acceptNickname = request.body.nickName;
     console.log(acceptac);
 	console.log(acceptwd);
 	console.log(acceptEmail);
@@ -78,7 +79,7 @@ app.post('/register', function(request, response){
 
 var insertDocuments = function(myDB){
 	var collection = myDB.collection('user_account');
-	collection.insertMany([{user : acceptac,password : acceptwd,email : acceptEmail,checkEmail:"NO"}], function(err, result) {
+	collection.insertMany([{user : acceptac,password : acceptwd,email : acceptEmail,checkEmail:"NO",nickname:acceptNickname}], function(err, result) {
 	assert.equal(err, null);
 	assert.equal(1, result.result.n);
 	assert.equal(1, result.ops.length);
