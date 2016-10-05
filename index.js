@@ -86,7 +86,6 @@ var insertDocuments = function(myDB){
 	});
 }
 
-// create reusable transporter object using the default SMTP transport
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
@@ -95,7 +94,7 @@ var transporter = nodemailer.createTransport({
     }
 });
 
-app.get('/send',function(req,res){
+app.post('/send',function(req,res){
     rand=Math.floor((Math.random() * 100) + 54);
 	var collection = myDB.collection('user_account');
 	collection.update({user:acceptac}, {$set: {randNumber:rand}});
