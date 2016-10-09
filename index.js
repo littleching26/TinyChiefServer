@@ -95,7 +95,7 @@ var transporter = nodemailer.createTransport({
 });
 
 app.post('/send',function(req,res){
-    rand=Math.floor((Math.random() * 100) + 54);
+    rand=Math.floor((Math.random() * 1000) + 54);
 	var collection = myDB.collection('user_account');
 	collection.update({user:acceptac}, {$set: {randNumber:rand}});
 	host=req.get('host');
@@ -119,8 +119,6 @@ app.post('/send',function(req,res){
 });
 
 app.get('/verify',function(req,res){
-	acceptac = req.body.User;
-	console.log(acceptac);
 	console.log(req.protocol+":/"+req.get('host'));
 	if((req.protocol+"://"+req.get('host'))==("http://"+host))
 	{
@@ -130,7 +128,7 @@ app.get('/verify',function(req,res){
 			console.log("email is verified");
 			res.end("<h1>Email "+mailOptions.to+" is been Successfully verified");
 			var collection = myDB.collection('user_account');
-			collection.update({user:acceptac}, {$set: {checkEmail:"OK"}});
+			collection.update({randNumber:rand}, {$set: {checkEmail:"OK"}});
 		}
 		else
 		{
