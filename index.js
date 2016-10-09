@@ -119,6 +119,7 @@ app.post('/send',function(req,res){
 });
 
 app.get('/verify',function(req,res){
+	acceptac = request.body.User;
 	console.log(req.protocol+":/"+req.get('host'));
 	if((req.protocol+"://"+req.get('host'))==("http://"+host))
 	{
@@ -128,7 +129,7 @@ app.get('/verify',function(req,res){
 			console.log("email is verified");
 			res.end("<h1>Email "+mailOptions.to+" is been Successfully verified");
 			var collection = myDB.collection('user_account');
-			collection.update({randNumber:rand}, {$set: {checkEmail:"OK"}});
+			collection.update({user:acceptac}, {$set: {checkEmail:"OK"}});
 		}
 		else
 		{
