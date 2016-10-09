@@ -86,17 +86,22 @@ var insertDocuments = function(myDB){
 	});
 }
 
-// create reusable transporter object using the default SMTP transport
-var transporter = nodemailer.createTransport('smtps://clownheart5221%40gmail.com:justtheway402@smtp.gmail.com');
+var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'clownheart5221@gmail.com',
+        pass: 'justtheway402'
+    }
+});
 
-app.get('/send',function(req,res){
+app.post('/send',function(req,res){
     rand=Math.floor((Math.random() * 100) + 54);
 	var collection = myDB.collection('user_account');
 	collection.update({user:acceptac}, {$set: {randNumber:rand}});
 	host=req.get('host');
 	link="http://"+req.get('host')+"/verify?id="+rand;
 	mailOptions={
-		from: '"tiny-chief 👥" <clownheart5221@gmail.com>', 
+		from: '"hahaha 👥" <clownheart5221@gmail.com>', 
 		to : acceptEmail,
 		subject : "Please confirm your Email account",
 		html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"	
@@ -113,7 +118,7 @@ app.get('/send',function(req,res){
 	});
 });
 
-app.get('/verify',function(req,res){
+app.post('/verify',function(req,res){
 	console.log(req.protocol+":/"+req.get('host'));
 	if((req.protocol+"://"+req.get('host'))==("http://"+host))
 	{
