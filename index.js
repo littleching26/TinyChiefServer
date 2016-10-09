@@ -119,7 +119,7 @@ app.post('/send',function(req,res){
 });
 
 app.get('/verify',function(req,res){
-	acceptac = request.body.User;
+	acceptac = req.body.User;
 	console.log(req.protocol+":/"+req.get('host'));
 	if((req.protocol+"://"+req.get('host'))==("http://"+host))
 	{
