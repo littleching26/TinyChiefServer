@@ -204,12 +204,20 @@ app.post('/cookbook/simple', function(request, response){
 });
 
 app.post('/upload/cookbook', function(request, response) {	
-	var collection = myDB.collection('cook_book');
-    console.log(request.body); 
+    app.use(myParser({limit: '50mb'}));
 	collection.insert(request.body,function(err, doc) {
-		console.log(request.body);
-		if(err) throw err;
-		response.end();
+		if (err) {			
+            console.log(err);
+            response.status(406).send(err);
+            response.end();
+		} 
+        else {
+	        var str = '{"response" : "success"}';
+            var obj = JSON.parse(str);
+            response.type('application/json');
+			response.status(200).send(obj);
+			response.end();
+		}
 	});
 });
 
