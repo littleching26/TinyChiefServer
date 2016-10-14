@@ -277,6 +277,22 @@ var setAvgRate = function(id){
                             { upsert : true});
     });
 };
+
+app.post('/searchable', function(request, response){
+	var acceptSearchTitle= request.body.SearchTitle;
+    console.log(acceptac);
+	var collection = myDB.collection('cook_book');
+	collection.find({"title":acceptSearchTitle}).toArray(function(err, docs) {
+		if (err) {
+			response.status(406).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(docs);
+			response.end();
+		}
+	});
+});
+
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
 });
