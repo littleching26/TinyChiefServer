@@ -118,7 +118,7 @@ app.post('/send',function(req,res){
 	});
 });
 
-app.get('/verify',function(req,res){
+app.post('/verify',function(req,res){
 	console.log(req.protocol+":/"+req.get('host'));
 	if((req.protocol+"://"+req.get('host'))==("http://"+host))
 	{
@@ -204,12 +204,20 @@ app.post('/cookbook/simple', function(request, response){
 });
 
 app.post('/upload/cookbook', function(request, response) {	
-	var collection = myDB.collection('cook_book');
-    console.log(request.body); 
+    app.use(myParser({limit: '50mb'}));
 	collection.insert(request.body,function(err, doc) {
-		console.log(request.body);
-		if(err) throw err;
-		response.end();
+		if (err) {			
+            console.log(err);
+            response.status(406).send(err);
+            response.end();
+		} 
+        else {
+	        var str = '{"response" : "success"}';
+            var obj = JSON.parse(str);
+            response.type('application/json');
+			response.status(200).send(obj);
+			response.end();
+		}
 	});
 });
 
@@ -269,6 +277,22 @@ var setAvgRate = function(id){
                             { upsert : true});
     });
 };
+
+app.post('/search/result', function(request, response){
+	var acceptSearchTitle= request.body.SearchTitle;
+    console.log(acceptSearchTitle);
+	var collection = myDB.collection('cook_book');
+	collection.find({"title":acceptSearchTitle}).toArray(function(err, docs) {
+		if (err) {
+			response.status(406).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(docs);
+			response.end();
+		}
+	});
+});
+
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
 });
