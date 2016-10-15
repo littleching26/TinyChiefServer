@@ -278,7 +278,7 @@ var setAvgRate = function(id){
     });
 };
 
-app.post('/searchable', function(request, response){
+app.post('/search/result', function(request, response){
 	var acceptSearchTitle= request.body.SearchTitle;
     console.log(acceptSearchTitle);
 	var collection = myDB.collection('cook_book');
