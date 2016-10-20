@@ -170,11 +170,8 @@ app.post('/createCookBook', function(request, response){
 	});
 });
 
-app.post('/cookbook/detail', function(request, response){
-	var collection = myDB.collection('cook_book');
-	var id=mongodb.ObjectID(request.body.id);
-	
-	collection.findOne({'_id': id},function(err, docs) {
+app.post('/cookbook/detail', function(request, response){	
+	collection.findOne({'_id': mongodb.ObjectID(request.body.id)},function(err, docs) {
 		if (err) {
 			response.status(406).end();
 		} else {
@@ -186,11 +183,10 @@ app.post('/cookbook/detail', function(request, response){
 });
 
 app.post('/cookbook/simple', function(request, response){
-	var collection = myDB.collection('cook_book');
 	cursor = collection.find({},{_id:true,"author.name":true,title:true,image:true})
-							.sort({"count":-1})
-							.skip(parseInt(request.body.SkipCount)*10)
-							.limit(10);
+                                .sort({"rate_avg":-1})
+                                .skip(parseInt(request.body.SkipCount)*10)
+                                .limit(10);
 	cursor.toArray(function(err, docs) {
 		if (err) {			
 			console.log(err);
@@ -204,7 +200,6 @@ app.post('/cookbook/simple', function(request, response){
 });
 
 app.post('/upload/cookbook', function(request, response) {	
-    app.use(myParser({limit: '50mb'}));
 	collection.insert(request.body,function(err, doc) {
 		if (err) {			
             console.log(err);
@@ -255,7 +250,6 @@ app.post('/upload/comment', function(request, response) {
                               response.end();
                           }
                           else{
-                              console.log("ggggg");
                               setAvgRate(request.body.id_cb);
                               response.status(200).send("success");
                               response.end();                              
