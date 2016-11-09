@@ -312,7 +312,7 @@ app.post('/inserFBInfo', function(request, response){
 	var acceptUSERID = request.body.UserID;
 	var acceptFBName = request.body.FBName;
 	var collection = myDB.collection('user_account');
-	collection.products.insertMany([{_id: mongodb.ObjectID(acceptUSERID),nickname:acceptFBName}], function(err, result) {
+	collection.save([{_id: mongodb.ObjectID(acceptUSERID),nickname:acceptFBName}], function(err, result) {
 	assert.equal(err, null);
 	assert.equal(1, result.result.n);
 	assert.equal(1, result.ops.length);
