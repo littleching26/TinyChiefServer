@@ -171,7 +171,6 @@ app.post('/createCookBook', function(request, response){
 });
 
 app.post('/cookbook/detail', function(request, response){
-	var collection = myDB.collection('cook_book');
 	var id=mongodb.ObjectID(request.body.id);
 	
 	collection.findOne({'_id': id},function(err, docs) {
@@ -313,7 +312,7 @@ app.post('/inserFBInfo', function(request, response){
 	var acceptUSERID = request.body.UserID;
 	var acceptFBName = request.body.FBName;
 	var collection = myDB.collection('user_account');
-	collection.insertMany([{id_ : acceptUSERID,nickname:acceptNickname}], function(err, result) {
+	collection.insertMany([{_id : acceptUSERID,nickname:acceptFBName}], function(err, result) {
 	assert.equal(err, null);
 	assert.equal(1, result.result.n);
 	assert.equal(1, result.ops.length);
