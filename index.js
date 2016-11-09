@@ -205,6 +205,7 @@ app.post('/cookbook/simple', function(request, response){
 
 app.post('/upload/cookbook', function(request, response) {	
     app.use(myParser({limit: '50mb'}));
+	var collection = db.collection('cook_book');
 	collection.insert(request.body,function(err, doc) {
 		if (err) {			
             console.log(err);
@@ -306,6 +307,18 @@ app.get('/get/price', function(request, response) {
 		}
 	});
 });
+
+app.post('/inserFBInfo', function(request, response){
+	var acceptUSERID = request.body.UserID;
+	var acceptFBName = request.body.FBName;
+	var collection = myDB.collection('user_account');
+	collection.insertMany([{id_ : acceptUSERID,nickname:acceptNickname}], function(err, result) {
+	assert.equal(err, null);
+	assert.equal(1, result.result.n);
+	assert.equal(1, result.ops.length);
+	});
+});
+
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
 });
