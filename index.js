@@ -293,6 +293,19 @@ app.post('/search/result', function(request, response){
 	});
 });
 
+app.get('/get/price', function(request, response) {    
+    cursor = myDB.collection('meat_price').find();
+	cursor.toArray(function(err, docs) {
+		if (err) {			
+			console.log(err);
+			response.status(406).end();
+		} else {	
+			response.type('application/json');
+			response.status(200).send(docs[0]);
+			response.end();
+		}
+	});
+});
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
 });
