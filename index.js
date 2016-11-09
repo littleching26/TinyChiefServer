@@ -244,6 +244,7 @@ app.get('/getCookBook', function(request, response){
 });	
 
 app.post('/upload/comment', function(request, response) {
+	var collection = db.collection('cook_book');
 	collection.update({'_id':mongodb.ObjectID(request.body.id_cb)},
                       {$push : { comment : { name : request.body.name,
                                             id : request.body.id_usr, 
@@ -317,6 +318,8 @@ app.post('/inserFBInfo', function(request, response){
 	assert.equal(1, result.result.n);
 	assert.equal(1, result.ops.length);
 	});
+	acceptUSERID = null;
+	acceptFBName = null;
 });
 
 app.listen(app.get('port'), function() {
