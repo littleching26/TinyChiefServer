@@ -172,7 +172,7 @@ app.post('/createCookBook', function(request, response){
 
 app.post('/cookbook/detail', function(request, response){
 	var id=mongodb.ObjectID(request.body.id);
-	
+	var collection = myDB.collection('cook_book');
 	collection.findOne({'_id': id},function(err, docs) {
 		if (err) {
 			response.status(406).end();
