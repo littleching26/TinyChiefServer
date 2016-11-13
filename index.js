@@ -101,10 +101,10 @@ app.post('/send',function(req,res){
 	host=req.get('host');
 	link="http://"+req.get('host')+"/verify?id="+rand;
 	mailOptions={
-		from: '"hahaha 👥" <clownheart5221@gmail.com>', 
+		from: '"智慧料理小當家" <clownheart5221@gmail.com>', 
 		to : acceptEmail,
 		subject : "Please confirm your Email account",
-		html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"	
+		html : "<br> 請點擊連結以認證信箱！<br><a href="+link+">前去認證！</a>"	
 	}
 	console.log(mailOptions);
 	transporter.sendMail(mailOptions, function(error, response){
@@ -126,7 +126,7 @@ app.get('/verify',function(req,res){
 		if(req.query.id==rand)
 		{
 			console.log("email is verified");
-			res.end("<h1>Email "+mailOptions.to+" is been Successfully verified");
+			res.end("<h1> "+mailOptions.to+" 您已成功認證囉！");
 			var collection = myDB.collection('user_account');
 			collection.update({randNumber:rand}, {$set: {checkEmail:"OK"}});
 		}
@@ -152,12 +152,10 @@ transporter.sendMail(mailOptions, function(error, info){
 app.use(myParser.urlencoded({extended : true}));
 app.post('/createCookBook', function(request, response){
 	console.log(request.body); 
-	  //下面那兩個是步驟和食材的陣列
 	  var cookBookTitle = request.body.title;
 	  var arrIngredients = request.body.Ingredients.split("|");
 	  var arrStep = request.body.Step.split("|");
 	  var cookBookImage = request.body.image;
-	  //顯示
 	  console.log(request.body.title);
 	  console.log(arrIngredients);
 	  console.log(arrStep);
@@ -220,27 +218,6 @@ app.post('/upload/cookbook', function(request, response) {
 		}
 	});
 });
-
-app.post('/getCookBook', function(request, response){
-	//cookBookNumber用來跳過剛剛顯示過的資料
-	cookBookNumber = request.body.Count;
-	detailCookBook = request.body.DetailCookBook;
-	console.log(cookBookNumber);
-});
-
-app.get('/getCookBook', function(request, response){
-	var collection = myDB.collection('cook_book');
-	//找前5大的資料 //skip是略過
-	collection.find().sort({"count":-1}).skip(parseInt(cookBookNumber)).limit(5).toArray(function(err, docs) {
-		if (err) {
-			response.status(406).end();
-		} else {
-			response.type('application/json');
-			response.status(200).send(docs);
-			response.end();
-		}
-	});
-});	
 
 app.post('/upload/comment', function(request, response) {
 	var collection = myDB.collection('cook_book');
