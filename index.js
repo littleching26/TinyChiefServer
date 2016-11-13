@@ -103,8 +103,8 @@ app.post('/send',function(req,res){
 	mailOptions={
 		from: '"智慧料理小當家" <clownheart5221@gmail.com>', 
 		to : acceptEmail,
-		subject : "Please confirm your Email account",
-		html : "<br> 請點擊連結以認證信箱！<br><a href="+link+">前去認證！</a>"	
+		subject : "請認證您的信箱",
+		html : "<br> 請點擊連結以認證信箱！<br><a href="+link+">前去認證</a>"	
 	}
 	console.log(mailOptions);
 	transporter.sendMail(mailOptions, function(error, response){
@@ -126,7 +126,7 @@ app.get('/verify',function(req,res){
 		if(req.query.id==rand)
 		{
 			console.log("email is verified");
-			res.end("<h1> "+mailOptions.to+" 您已成功認證囉！");
+			res.end("<h1> "+mailOptions.to+" 已成功認證囉！<br>現在您可以開始享受您最輕鬆上手的APP-智慧料理小當家");
 			var collection = myDB.collection('user_account');
 			collection.update({randNumber:rand}, {$set: {checkEmail:"OK"}});
 		}
