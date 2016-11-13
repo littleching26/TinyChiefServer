@@ -311,8 +311,10 @@ app.get('/get/price', function(request, response) {
 app.post('/inserFBInfo', function(request, response){
 	var acceptUSERID = request.body.UserID;
 	var acceptFBName = request.body.FBName;
+	console.log(acceptUSERID);
+	console.log(acceptFBName);
 	var collection = myDB.collection('user_account');
-	collection.insertMany([{_id: ObjectID(acceptUSERID),"nickname":acceptFBName}], function(err, result) {
+	collection.insertMany([{"_id": acceptUSERID,"nickname":acceptFBName}], function(err, result) {
 	assert.equal(err, null);
 	assert.equal(1, result.result.n);
 	assert.equal(1, result.ops.length);
