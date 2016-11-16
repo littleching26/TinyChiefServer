@@ -185,7 +185,7 @@ app.post('/cookbook/detail', function(request, response){
 app.post('/cookbook/simple', function(request, response){
 	var collection = myDB.collection('cook_book');
 	cursor = collection.find({},{_id:true,"author.name":true,title:true,image:true})
-							.sort({"count":-1})
+							.sort({"rate_avg":-1})
 							.skip(parseInt(request.body.SkipCount)*10)
 							.limit(10);
 	cursor.toArray(function(err, docs) {
@@ -299,6 +299,64 @@ app.post('/inserFBInfo', function(request, response){
 	acceptUSERID = null;
 	acceptFBName = null;
 });
+
+app.post('/calendar/upload', function(request, response) {
+    var year = request.body.year;
+    var month = request.body.month;
+    var day = request.body.day;
+    var strID;
+    
+    if(checkAccountFB(request.body.id_usr))
+        strID = request.body.id_usr;    
+    else
+        strID = mongodb.ObjectID(request.body.id_usr);
+
+	myDB.collection('user_account').update({'_id':strID},
+                      {$push : { calendar : { date : new Date(year,month,day), 
+                                              time : request.body.time,
+                                              title : request.body.title,
+                                              id : request.body.id_cb}}},
+                      function(err,doc){
+                          if (err) {
+                              console.log(err);
+                              response.status(406).send(err);
+                              response.end();
+                          }
+                          else{
+                              response.status(200).send("success");
+                              response.end();                              
+                          }
+                      });
+});
+
+app.post('/calendar/get', function(request, response) {
+    var strID;    
+    
+    if(checkAccountFB(request.body.id))
+        strID = request.body.id;    
+    else
+        strID = mongodb.ObjectID(request.body.id);
+    
+    cursor = myDB.collection('user_account').findOne({'_id':strID},
+            {_id : false, calendar : true},function(err, docs) {
+                if (err) {        
+                    response.send(err);
+                    response.end();
+                } else {
+                    response.type('application/json');
+                    response.status(200).send(docs.calendar);
+                    response.end();
+                }
+            });
+});
+
+var checkAccountFB = function(id){
+    var strID = id;
+    if(id.length == 16)
+        return true;
+    else
+        return false;
+}
 
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
