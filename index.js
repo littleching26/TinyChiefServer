@@ -201,7 +201,6 @@ app.post('/cookbook/simple', function(request, response){
 });
 
 app.post('/upload/cookbook', function(request, response) {	
-    app.use(myParser({limit: '50mb'}));
 	var collection = myDB.collection('cook_book');
 	collection.insert(request.body,function(err, doc) {
 		if (err) {			
