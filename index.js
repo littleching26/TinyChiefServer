@@ -260,7 +260,7 @@ app.post('/search/result', function(request, response){
 	var acceptSearchTitle= request.body.SearchTitle;
     console.log(acceptSearchTitle);
 	var collection = myDB.collection('cook_book');
-	collection.find({"title":{'$regex': acceptSearchTitle, $options: 'i'}}).toArray(function(err, docs) {
+	collection.find({"title":{'$regex': acceptSearchTitle, $options: 'i'}}).sort({"rate_avg":-1}).toArray(function(err, docs) {
 		if (err) {
 			response.status(406).end();
 		} else {
