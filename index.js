@@ -295,8 +295,6 @@ app.post('/inserFBInfo', function(request, response){
 	assert.equal(1, result.result.n);
 	assert.equal(1, result.ops.length);
 	});
-	acceptUSERID = null;
-	acceptFBName = null;
 });
 
 app.post('/calendar/upload', function(request, response) {
