@@ -284,7 +284,7 @@ app.get('/get/price', function(request, response) {
 	});
 });
 
-app.post('/inserFBInfo', function(request, response){
+app.post('/insert/fbinfo', function(request, response){
 	var acceptUSERID = request.body.UserID;
 	var acceptFBName = request.body.FBName;
 	console.log(acceptUSERID);
