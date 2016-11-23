@@ -290,10 +290,35 @@ app.post('/inserFBInfo', function(request, response){
 	console.log(acceptUSERID);
 	console.log(acceptFBName);
 	var collection = myDB.collection('user_account');
-	collection.insertMany([{"_id": acceptUSERID,"nickname":acceptFBName}], function(err, result) {
-	assert.equal(err, null);
-	assert.equal(1, result.result.n);
-	assert.equal(1, result.ops.length);
+	collection.insert({"nickname":acceptFBName},function(err, doc) {
+		if (err) {			
+            console.log(err);
+            response.status(406).send(err);
+            response.end();
+		} 
+        else {
+			var newid;
+			var origid;
+			console.log(doc.insertedIds[0]);
+			origid = doc.insertedIds[0];
+			newid = collection.findOne({'_id':origid});
+			newid._id = acceptUSERID;
+			newid.nickname = acceptFBName;
+			console.log(newid);
+			collection.insert(newid,function(err,doc){
+				if(err) {
+					console.log(err);
+					response.status(406).send(err);
+					response.end();
+				}
+				else{
+					response.type('application/json');
+					response.status(200).send("success");
+					response.end();
+				}
+			});
+			collection.remove({'_id':origid})
+		}
 	});
 });
 
